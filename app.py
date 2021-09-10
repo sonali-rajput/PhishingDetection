@@ -1,12 +1,18 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 app = Flask(__name__)
-@app.route('/')
+@app.route('/', methods=['POST','GET'])
 def fun():
-    return render_template('index.html')
+    if request.method == "POST":
+        link_content = request.form['link']
+        return link_content 
 
-# @app.route('/ <link>')
-# def getLink(link):
-#     return link 
+    else:
+        return render_template('index.html')
+
+
+def getLink(link):
+    ls =[]
+    return ls 
 
 
 
