@@ -6,7 +6,10 @@ app = Flask(__name__)
 def fun():
     if request.method == "POST":
         link_content = request.form['link']
-        return link_content 
+        if predict(getLink(link_content))==1:
+            return  render_template('phishing.html')
+        else:
+            return render_template('legitimate.html')
 
     else:
         return render_template('index.html')
@@ -14,6 +17,9 @@ def fun():
 def getLink(link):
     ls =[]
     return ls 
+def predict(ls):
+    return 0
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,4 +2,24 @@ body {
     margin:0;
     font-family: sans-serif;
     text-align: center;
+    background-image: url(blue.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    
 }
+h1 {
+    color: white;
+}
+.button {
+    background-color: #34cdfc; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration:black;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+    
