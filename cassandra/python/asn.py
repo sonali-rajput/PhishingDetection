@@ -1,11 +1,12 @@
 from cymruwhois import Client
 import socket
 
-
-ip = socket.gethostbyname('google.com')
-
-c = Client()
-r = c.lookup(ip)
-print(r.asn)
+def asn(url):
+    ip = socket.gethostbyname(url) 
+    c = Client()
+    r = c.lookup(ip)
+    return r.asn 
+url = "google.com"
+print(asn(url))
 
 

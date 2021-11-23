@@ -1,10 +1,10 @@
 import urllib.request 
 f = None
 try:
-    f = urllib.request.urlopen('https://discord.com/')
+    f = urllib.request.urlopen('https://www.youtube.com/')
 
     header=str(f.headers)
-    # print(f.headers)
+    print(f.headers)
     result = header.find("max-age")
     answer=""
     j=0

@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request
+from urlparse import urlparse
 app = Flask(__name__)
 
 @app.route('/', methods=['POST','GET'])
@@ -13,8 +14,18 @@ def fun():
 
     else:
         return render_template('index.html')
+
+
+
 #This function return a list of 55 variable which will be calculated in this or in other function by the help of string link which contains a webpage
 def getLink(link):
+    pt=urlparse(url).path
+    nl=urlparse(url).netloc
+    prms=urlparse(url).params
+    qry=urlparse(url).query
+
+
+
     ls =[]
     return ls 
 def predict(ls):
