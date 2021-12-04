@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request
-from urlparse import urlparse
+
+
 app = Flask(__name__)
 
 @app.route('/', methods=['POST','GET'])
@@ -22,7 +23,7 @@ def getLink(link):
     pt=urlparse(url).path
     nl=urlparse(url).netloc
     prms=urlparse(url).params
-    qry=urlparse(url).query
+    qry=urlparse(url).query 
 
 
 

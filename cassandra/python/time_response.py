@@ -1,9 +1,13 @@
 import socket
 import time
 
-hostname = 'www.google.com'
+hostname = 'www.youtube.com'
+def timeResponse(url):
 
-dns_start = time.time()
-socket.gethostbyname(hostname)
-dns_end = time.time()
-print ('DNS time = ms' ,((dns_end - dns_start) * 1000) )
+    dns_start = time.time()
+    socket.gethostbyname(url)
+    dns_end = time.time()
+    return (dns_end - dns_start) * 1000
+
+
+print(timeResponse(hostname))

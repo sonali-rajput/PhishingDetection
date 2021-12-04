@@ -1,5 +1,6 @@
 link = "http://google.com/"
-if "https" in link:
-    print(1)
-else:
-    print(0)
+def ssl(url):
+    if "https" in link:
+        return 1
+    else:
+        return 0
