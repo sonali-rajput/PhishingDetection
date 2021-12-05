@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.feature_selection import chi2
@@ -92,4 +92,3 @@ row = y
 for i in range(len(row)):
     print(i)
     session.execute("INSERT INTO phishing.final_training_data_y (id,phishing) VALUES ({},{})".format(i,row.iloc[i]))
-

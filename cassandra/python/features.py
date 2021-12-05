@@ -1,4 +1,6 @@
-from cymruwhois import Client
+from cymruwhois import Client 
+import whois 
+import re 
 import socket
 import requests
 import time
@@ -6,6 +8,7 @@ import os
 from urllib.parse import urlparse
 import urllib.request 
 import dns.resolver
+#import asn
 
 
 class feature:
@@ -13,10 +16,16 @@ class feature:
 
 
     def __init__(self,url):
-        self.pt=urlparse(url).path
-        self.nl=urlparse(url).netloc
-        self.prms=urlparse(url).params
-        self.qry=urlparse(url).query 
+        tempObj = urlparse(url)
+        self.pt=tempObj.path
+        head_tail = os.path.split(self.pt)
+        self.filename= head_tail[1]
+        self.directory = head_tail[0]
+        self.nl=tempObj.netloc
+        self.ht=tempObj.hostname
+        self.url = url
+        #self.prms=tempObj.params
+        self.qry=tempObj.query 
 
 
     def asn(self,url):
@@ -94,7 +103,7 @@ class feature:
 
 
 
-    def searchingAsteriskUrl(self,url):
+    def searchingAsterisk(self,url):
         count = 0
         for i in url:
             if i=="*":
@@ -108,7 +117,7 @@ class feature:
     #             count+=1
     #     return count 
 
-    def searchingAtUrl(self,url):
+    def searchingAt(self,url):
         count = 0
         for i in url:
             if i=="@":
@@ -164,7 +173,7 @@ class feature:
                 count+=1
         return count 
 
-    def searchingHyphenDirectory(url):
+    def searchingHyphen(self,url):
         count = 0
         for i in url:
             if i=="-":
@@ -180,16 +189,16 @@ class feature:
 
     
     def countmxservers(self,url):
-    	result = dns.resolver.query(url, 'MX')
-    	return len(result)
+        result = dns.resolver.query(url, 'MX')
+        return len(result)
 
 
     def countnsservers(self,url):
-    	result = dns.resolver.query(url, 'NS')
-    	return len(result)
+        result = dns.resolver.query(url, 'NS')
+        return len(result)
 
 
-    def searchingPercentDirectory(self,url):
+    def searchingPercent(self,url):
         count = 0
         for i in url:
             if i=="%":
@@ -211,7 +220,7 @@ class feature:
             count+=1
         return count
 
-    def searchingSlashParams(self,url):
+    def searchingSlash(self,url):
         count = 0
         for i in url:
             if i=="/":
@@ -233,11 +242,12 @@ class feature:
                 count+=1
         return count 
 
-    def searchingTldUrl(self,url):
-        return len(url)
+    def lenthTldUrl(self,url):
+        temp = url.split(".")
+        return len(temp[2])
 
 
-    def searchingUnderlineDomain(self,url):
+    def searchingUnderline(self,url):
         count = 0
         for i in url:
             if i=="_":
@@ -245,7 +255,7 @@ class feature:
         return count 
 
     
-    def searchingVowelsDomain(self,url):
+    def CountVowels(self,url):
         count = 0
         for i in url:
             if i=="a" or i == "e" or i == "i" or i == "o" or i == "u":
@@ -332,3 +342,33 @@ class feature:
         socket.gethostbyname(url)
         dns_end = time.time()
         return (dns_end - dns_start) * 1000
+
+
+if __name__ == '__main__':
+    object1 = feature("//www.cwi.nl:80/%7Eguido/Python.html?q=283928fjs")
+    # lt = [object1.asn(object1.netloc),object1.]
+    print(object1.nl)
+    print(object1.ht)
+    #print(object1.prms)
+    print(object1.qry)
+    print(object1.pt)
+    print(object1.directory)
+    print(object1.filename)
+    lt = [
+        object1.searchingQuestionMark(object1.directory),
+        object1.emailInUrl(object1.url),
+        object1.searchingDot(object1.filename),
+        object1.searchingSlash(object1.url),
+        object1.searchingDot(object1.directory),
+        object1.searchingDot(object1.qry),
+        object1.searchingEqual(object1.url),
+        object1.searchingQuestionMark(object1.qry),
+        object1.searchingUnderline(object1.directory),
+        object1.searchingUnderline(object1.qry),
+        object1.DirectoryLength(object1.directory),
+        object1.qtyAndUrl(object1.url),
+
+        
+        ]
+
+
