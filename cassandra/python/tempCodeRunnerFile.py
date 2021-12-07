@@ -1,0 +1,5 @@
+me(object1.ht),
+        object1.Length(object1.qry),
+        object1.searchingDot(object1.url),
+        object1.searchingQuestionMark(object1.url),
+        object1.fileLength(object1.filename),

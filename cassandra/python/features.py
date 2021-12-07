@@ -8,7 +8,8 @@ import os
 from urllib.parse import urlparse
 import urllib.request 
 import dns.resolver
-#import asn
+from datetime import date
+from datetime import datetime
 
 
 class feature:
@@ -189,13 +190,20 @@ class feature:
 
     
     def countmxservers(self,url):
-        result = dns.resolver.query(url, 'MX')
-        return len(result)
+        try:
+
+            result = dns.resolver.resolve(url, 'MX')
+            return len(result)
+        except:
+            return 0
 
 
-    def countnsservers(self,url):
-        result = dns.resolver.query(url, 'NS')
-        return len(result)
+    def countnameservers(self,url):
+        try:
+            result = dns.resolver.resolve(url, 'NS')
+            return len(result)
+        except:
+            return 0
 
 
     def searchingPercent(self,url):
@@ -269,17 +277,6 @@ class feature:
         return 0
 
     
-    def is_registered(self,domain_name):
-        """
-        A function that returns a boolean indicating 
-        whether a `domain_name` is registered
-        """
-        try:
-            w = whois.whois(domain_name)
-        except Exception:
-            return False
-        else:
-            return bool(w.domain_name)
     
     def ssl(self,url):
         if "https" in url:
@@ -312,7 +309,7 @@ class feature:
 
 
 
-    def ttl_hostname(self,url):
+    def ttlHostname(self,url):
         f = None
         try:
             f = urllib.request.urlopen(url)
@@ -344,8 +341,71 @@ class feature:
         return (dns_end - dns_start) * 1000
 
 
+
+    
+    def timeActivation(self,url):
+        def is_registered(url):
+            """
+            A function that returns a boolean indicating 
+            whether a `domain_name` is registered
+            """
+            try:
+                w = whois.whois(url)
+            except Exception:
+                return False
+            else:
+                return bool(w.domain_name)
+        if is_registered(url):
+            whois_info = whois.whois(url)
+            creationDate = whois_info.creation_date
+            #print(type(creationDate),"hi")
+            if isinstance(creationDate,datetime):
+                crd = creationDate
+                crdate = crd.date()
+                today = date.today()
+                activationDate = today - crdate
+                return activationDate.days
+    
+            if isinstance(creationDate,list):
+                crd=creationDate[0]
+                crdate = crd.date()
+                today = date.today()
+                activationDate = today - crdate
+                return activationDate.days
+    
+    
+    def timeExpiration(self,url):
+        def is_registered(url):
+            """
+            A function that returns a boolean indicating 
+            whether a `domain_name` is registered
+            """
+            try:
+                w = whois.whois(url)
+            except Exception:
+                return False
+            else:
+                return bool(w.domain_name)
+        if is_registered(url):
+            whois_info = whois.whois(url)
+            expirationDate = whois_info.expiration_date
+    
+            if isinstance(expirationDate,datetime):
+                erd = expirationDate
+                expr = erd.date()
+                today = date.today()
+                exprDate = expr - today
+                return exprDate.days
+            if isinstance(expirationDate,list):
+                erd=expirationDate[0]
+                expr = erd.date()
+                today = date.today()
+                exprDate = expr - today
+                return exprDate.days
+
+
 if __name__ == '__main__':
-    object1 = feature("//www.cwi.nl:80/%7Eguido/Python.html?q=283928fjs")
+    object1 = feature("//www.cwi.nl/%7Eguido/Python.html?q=283928fjs")
     # lt = [object1.asn(object1.netloc),object1.]
     print(object1.nl)
     print(object1.ht)
@@ -356,6 +416,7 @@ if __name__ == '__main__':
     print(object1.filename)
     lt = [
         object1.searchingQuestionMark(object1.directory),
+        object1.timeActivation(object1.ht),
         object1.emailInUrl(object1.url),
         object1.searchingDot(object1.filename),
         object1.searchingSlash(object1.url),
@@ -364,11 +425,50 @@ if __name__ == '__main__':
         object1.searchingEqual(object1.url),
         object1.searchingQuestionMark(object1.qry),
         object1.searchingUnderline(object1.directory),
+        object1.urlShort(object1.url),
         object1.searchingUnderline(object1.qry),
         object1.DirectoryLength(object1.directory),
         object1.qtyAndUrl(object1.url),
-
-        
+        object1.searchingHyphen(object1.directory),
+        object1.searchingHyphen(object1.filename),
+        object1.searchingUnderline(object1.url),
+        object1.searchingHyphen(object1.qry),
+        object1.searchingAt(object1.directory),
+        object1.Length(object1.url),
+        object1.DomainInIP(object1.ht),
+        object1.searchingSlash(object1.qry),
+        object1.ssl(object1.url),
+        object1.searchingHyphen(object1.url),
+        object1.searchingAsterisk(object1.directory),
+        object1.searchingHyphen(object1.ht),
+        object1.ttlHostname(object1.ht),
+        object1.Length(object1.qry),
+        object1.searchingDot(object1.url),
+        object1.searchingQuestionMark(object1.url),
+        object1.fileLength(object1.filename),
+        object1.timeExpiration(object1.ht),
+        object1.searchingDot(object1.ht),
+        object1.searchingPercent(object1.qry),
+        object1.asn(object1.ht),
+        object1.searchingAt(object1.url),
+        object1.countnameservers(object1.ht),
+        object1.searchingTilde(object1.url),
+        object1.searchingPercent(object1.directory),
+        object1.CountVowels(object1.ht),
+        object1.serverClientDomain(object1.ht),
+        object1.countmxservers(object1.ht),
+        object1.searchingDollar(object1.url),
+        object1.lenthTldUrl(object1.ht),
+        object1.searchingSpace(object1.url),
+        object1.countRedirects(object1.url),
+        object1.searchingExclamation(object1.url),
+        object1.searchingUnderline(object1.ht),
+        object1.Length(object1.ht),
+        object1.searchingAsterisk(object1.url),
+        object1.searchingComma(object1.url),
+        object1.ipresolvecount(object1.url),
+        object1.searchingHashtag(object1.url),
+        object1.timeResponse(object1.ht)
         ]
 
 
