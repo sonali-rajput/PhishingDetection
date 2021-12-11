@@ -10,6 +10,7 @@ import urllib.request
 import dns.resolver
 from datetime import date
 from datetime import datetime
+from tld import get_tld
 
 
 class feature:
@@ -251,8 +252,9 @@ class feature:
         return count 
 
     def lenthTldUrl(self,url):
-        temp = url.split(".")
-        return len(temp[2])
+    #     temp = url.split(".")
+    #     return len(temp[2])
+        return len(get_tld(url)) 
 
 
     def searchingUnderline(self,url):

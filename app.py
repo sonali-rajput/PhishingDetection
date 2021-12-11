@@ -24,6 +24,7 @@ def fun():
 #This function return a list of 55 variable which will be calculated in this or in other function by the help of string link which contains a webpage
 def getLink(link):
     object1 = feature(link)
+    #print(object1.ht)
     lt = [[
         object1.searchingQuestionMark(object1.directory),
         object1.timeActivation(object1.ht),
@@ -68,7 +69,7 @@ def getLink(link):
         object1.serverClientDomain(object1.ht),
         object1.countmxservers(object1.ht),
         object1.searchingDollar(object1.url),
-        object1.lenthTldUrl(object1.ht),
+        object1.lenthTldUrl(object1.url),
         object1.searchingSpace(object1.url),
         object1.countRedirects(object1.url),
         object1.searchingExclamation(object1.url),
@@ -95,7 +96,7 @@ def predict(ls):
     # x= scaler.fit_transform(x)
     scaler.fit(Tf_standarization)
     scaled_f = scaler.transform(Tf_standarization)
-    df_tf = pd.DataFrame(scaled_f,columns=Tf_standarization.columns[:])
+    df_tf = pd.DataFrame(scaled_f,columns=Tf_standarization[:])
     df_tf.head()
     obj = keras.models.load_model("final_model")
     obj = keras.models.load_model("final_topFeautures.pb")
