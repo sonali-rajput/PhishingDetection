@@ -1,8 +1,10 @@
 from flask import Flask, redirect, url_for, render_template, request
 import keras
+from Db_and_pyfiles.data import data
 from features import feature
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
+from Db_and_pyfiles.data import data
 
 app = Flask(__name__)
 
@@ -11,11 +13,12 @@ app = Flask(__name__)
 def fun():
     if request.method == "POST":
         link_content = request.form['link']
-        if predict(getLink(link_content))==1:
+        phish_value = predict(getLink(link_content))
+        # objofdata = data(link_content,phish_value)
+        if phish_value == 1:
             return  render_template('phishing.html')
         else:
             return render_template('legitimate.html')
-
     else:
         return render_template('index.html')
 
@@ -100,8 +103,9 @@ def predict(ls):
     df_tf.head()
     obj = keras.models.load_model("final_model")
     obj = keras.models.load_model("final_topFeautures.pb")
-    obj.predict(ls)
-    return 0
+    value = obj.predict(ls)[0][0]
+    # print(value[0])
+    return int(value)
 
 
 if __name__ == '__main__':

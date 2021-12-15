@@ -2,7 +2,7 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 
 cloud_config= {
-    'secure_connect_bundle': 'cassandra\secure-connect-phishing-detection.zip'
+    'secure_connect_bundle': 'Db_and_pyfiles\secure-connect-phishing-detection.zip'
 }
 auth_provider = PlainTextAuthProvider('sonalirajput1088@gmail.com', 'shutupBitxh*8')
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
@@ -30,4 +30,5 @@ class data:
 # for row in rows:
 #     print(row[0],row[1],row[2])
 
-obj = data('youtube.com',1)
+# obj = data('youtube.com',1)
+# obj = data('helloworld.co')
