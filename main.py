@@ -1,10 +1,9 @@
 from flask import Flask, redirect, url_for, render_template, request
 import keras
-from Db_and_pyfiles.data import data
-from features import feature
+from src.features import feature
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
-from Db_and_pyfiles.data import data
+from src.data import data
 
 app = Flask(__name__)
 
@@ -14,7 +13,7 @@ def fun():
     if request.method == "POST":
         link_content = request.form['link']
         phish_value = predict(getLink(link_content))
-        # objofdata = data(link_content,phish_value)
+        objofdata = data(link_content,phish_value)
         if phish_value == 1:
             return  render_template('phishing.html')
         else:
