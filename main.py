@@ -1,9 +1,11 @@
 from flask import Flask, redirect, url_for, render_template, request
-import keras
+#import keras
 from src.features import feature
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 from src.data import data
+from sklearn import tree 
+import pickle
 
 app = Flask(__name__)
 
@@ -100,8 +102,9 @@ def predict(ls):
     scaled_f = scaler.transform(Tf_standarization)
     df_tf = pd.DataFrame(scaled_f,columns=Tf_standarization[:])
     df_tf.head()
-    obj = keras.models.load_model("final_model")
-    obj = keras.models.load_model("final_topFeautures.pb")
+    #obj = keras.models.load_model("final_model")
+    #obj = keras.models.load_model("final_topFeautures.pb")
+    obj = pickle.load(open("src\itachi.sav", 'rb'))
     value = obj.predict(ls)[0][0]
     # print(value[0])
     return int(value)

@@ -1,12 +1,12 @@
 import pandas as pd 
 import numpy as np 
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
+#import tensorflow as tf
+#from tensorflow import keras
+#from tensorflow.keras import layers
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 cloud_config= {
-        'secure_connect_bundle': 'secure-connect-phishing-detection.zip'
+        'secure_connect_bundle': 'src\secure-connect-phishing-detection.zip'
 }
 auth_provider = PlainTextAuthProvider('sonalirajput1088@gmail.com', 'shutupBitxh*8')
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)

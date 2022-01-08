@@ -2,7 +2,7 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 
 cloud_config= {
-    'secure_connect_bundle': 'Db_and_pyfiles\secure-connect-phishing-detection.zip'
+    'secure_connect_bundle': 'src\secure-connect-phishing-detection.zip'
 }
 auth_provider = PlainTextAuthProvider('sonalirajput1088@gmail.com', 'shutupBitxh*8')
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
