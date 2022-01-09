@@ -283,8 +283,7 @@ class feature:
     def ssl(self,url):
         if "https" in url:
             return 1
-        else:
-            return 0
+        return 0
 
     def urlShort(self,url):
         
@@ -361,8 +360,9 @@ class feature:
         if is_registered(url):
             whois_info = whois.whois(url)
             creationDate = whois_info.creation_date
+            print(type(creationDate))
             #print(type(creationDate),"hi")
-            if isinstance(creationDate,datetime):
+            if isinstance(creationDate,date):
                 crd = creationDate
                 crdate = crd.date()
                 today = date.today()
@@ -375,6 +375,8 @@ class feature:
                 today = date.today()
                 activationDate = today - crdate
                 return activationDate.days
+
+        #return 0
     
     
     def timeExpiration(self,url):
@@ -405,6 +407,8 @@ class feature:
                 today = date.today()
                 exprDate = expr - today
                 return exprDate.days
+        #return 0
+        
 
 
 #if __name__ == '__main__':

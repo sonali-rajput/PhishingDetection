@@ -104,10 +104,13 @@ def predict(ls):
     df_tf.head()
     #obj = keras.models.load_model("final_model")
     #obj = keras.models.load_model("final_topFeautures.pb")
-    obj = pickle.load(open("src\itachi.sav", 'rb'))
-    value = obj.predict(ls)[0][0]
-    # print(value[0])
-    return int(value)
+    obj = pickle.load(open("src/itachi.sav", 'rb'))
+    #print(ls)
+    value = obj.predict(ls).flatten()
+    #print(value)
+    
+    #print(value[0])
+    return int(value[0])
 
 
 if __name__ == '__main__':

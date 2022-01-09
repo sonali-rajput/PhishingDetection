@@ -2,3 +2,5 @@ phishing
 cassandra/python/__pycache__
 auth.json
 env
+env2
+__pycache__
