@@ -1,21 +1,28 @@
 from flask import Flask, redirect, url_for, render_template, request
-#import keras
 from src.features import feature
-from sklearn.preprocessing import MinMaxScaler
-import pandas as pd
+from sklearn.preprocessing import MinMaxScaler 
+import pandas as pd 
 from src.data import data
 from sklearn import tree 
 import pickle
-
-app = Flask(__name__)
+app = Flask(__name__) 
 
 @app.route('/', methods=['POST','GET'])
-#This fun function returns link_content which for now is just the link given as input by user derived to this program by POST method
-def fun():
+def fun(): 
+    """
+    This fun function returns link_content which for now is just the link given as input by
+    user derived to this program by POST method.
+
+    """
     if request.method == "POST":
         link_content = request.form['link']
-        phish_value = predict(getLink(link_content))
-        objofdata = data(link_content,phish_value)
+        checkExisting=data.DataValidator(link_content) #checking if url is present in existing database.
+        if checkExisting==-1:
+            phish_value=predict(getLink(link_content)) # predicting if the url is phishing or legitimate via model.
+            objofdata = data(link_content,phish_value) # storing new data in database.
+        else:
+            phish_value=checkExisting
+
         if phish_value == 1:
             return  render_template('phishing.html')
         else:
@@ -24,11 +31,12 @@ def fun():
         return render_template('index.html')
 
 
-
-#This function return a list of 55 variable which will be calculated in this or in other function by the help of string link which contains a webpage
 def getLink(link):
+    """
+    This function return a list of 55 variable which will be calculated in this or in other function by 
+    the help of string link which contains a webpage
+    """
     object1 = feature(link)
-    #print(object1.ht)
     lt = [[
         object1.searchingQuestionMark(object1.directory),
         object1.timeActivation(object1.ht),
@@ -89,42 +97,21 @@ def getLink(link):
 
 
 
-#     ls =[]
-#     return ls 
 def predict(ls):
     """
-    first we standardize given user data
+    first we standardize given user data and loaded the model using pickle
+    and predicted using that model.
     """
     Tf_standarization = ls
     scaler=MinMaxScaler()
-    # x= scaler.fit_transform(x)
     scaler.fit(Tf_standarization)
     scaled_f = scaler.transform(Tf_standarization)
     df_tf = pd.DataFrame(scaled_f,columns=Tf_standarization[:])
     df_tf.head()
-    #obj = keras.models.load_model("final_model")
-    #obj = keras.models.load_model("final_topFeautures.pb")
     obj = pickle.load(open("src/itachi.sav", 'rb'))
-    #print(ls)
     value = obj.predict(ls).flatten()
-    #print(value)
-    
-    #print(value[0])
     return int(value[0])
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-

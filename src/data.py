@@ -25,6 +25,16 @@ class data:
 
         except:
             rows = session.execute("UPDATE phishing.counter set id_counter = {} where id = 1".format(c))
+    @staticmethod
+    def DataValidator(val):
+        e = (session.execute("SELECT * FROM phishing.existing_url where url='{}' ALLOW FILTERING".format(val)))
+        try:
+            return e[0][1]
+        except:
+            return -1
+
+            
+        
             
 
 # for row in rows:

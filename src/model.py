@@ -5,8 +5,10 @@ import numpy as np
 #from tensorflow.keras import layers
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
+from sklearn import tree
+import pickle
 cloud_config= {
-        'secure_connect_bundle': 'src\secure-connect-phishing-detection.zip'
+        'secure_connect_bundle': 'src/secure-connect-phishing-detection.zip'
 }
 auth_provider = PlainTextAuthProvider('sonalirajput1088@gmail.com', 'shutupBitxh*8')
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
@@ -35,11 +37,6 @@ query = "SELECT * from phishing.final_training_data_y;"
 rslt2 = session.execute(query, timeout=None)
 
 y = rslt._current_rows
-model = keras.Sequential([keras.layers.Dense(55,input_shape=(55,),activation = tf.nn.relu),
-                          keras.layers.Dense(20,activation = tf.nn.relu),
-                          keras.layers.Dense(10,activation = tf.nn.relu),
-                          keras.layers.Dense(1,activation =tf.nn.sigmoid)])
-# take relu instead of sigmoid, and use more dense layer 
-model.compile(optimizer = 'adam',loss='binary_crossentropy',metrics =['accuracy'])
-model.fit(x,y,epochs =100) 
-model.save("my_model")
+model = tree.DecisionTreeClassifier() 
+model.fit(x,y) 
+pickle.dump(model, open("itachi.sav", 'wb'))
