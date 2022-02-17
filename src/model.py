@@ -1,8 +1,5 @@
 import pandas as pd 
 import numpy as np 
-#import tensorflow as tf
-#from tensorflow import keras
-#from tensorflow.keras import layers
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from sklearn import tree
@@ -20,8 +17,7 @@ if row:
 else:
     print("An error occurred.")
 
-# x=session.execute("select * from phishing.final_training_data;")
-# print(type(x)) 
+
 def pandas_factory(colnames, rows):
     return pd.DataFrame(rows, columns=colnames)
 

@@ -29,8 +29,10 @@ class data:
     def DataValidator(val):
         e = (session.execute("SELECT * FROM phishing.existing_url where url='{}' ALLOW FILTERING".format(val)))
         try:
+            print("hi"+e[0][1])
             return e[0][1]
         except:
+            print(-1)
             return -1
 
             

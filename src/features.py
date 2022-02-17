@@ -222,7 +222,7 @@ class feature:
         return count 
 
     def countRedirects(self,url):
-        responses = requests.get("https://forms.gle/hK9oHutvPAsnP3dAA")
+        responses = requests.get(url)
         count = 0
         for response in responses.history:
             print(response.url)

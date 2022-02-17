@@ -31,6 +31,19 @@ def fun():
         return render_template('index.html')
 
 
+@app.route('/legitimate', methods=['POST','GET'])
+def fun2():
+    if request.method == "POST":
+        if  request.form.get('but1') == 'Continue':
+            return render_template("index.html")
+
+@app.route('/phishing', methods=['POST','GET'])
+def fun3():
+    if request.method == "POST":
+        if  request.form.get('but2') == 'Continue':
+            return render_template("index.html")
+
+
 def getLink(link):
     """
     This function return a list of 55 variable which will be calculated in this or in other function by 
